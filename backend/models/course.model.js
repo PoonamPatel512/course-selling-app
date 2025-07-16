@@ -1,20 +1,32 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const courseSchema = new mongoose.Schema({
     title:{
         type:String,
-        require:true,
+        required:true,
     },
     description:{
         type:String,
-        require:true,
+        required:true,
     },
     price:{
         type:Number,
-        require:true,
+        required:true,
     },
     image:{
-        type:String,
-        require:true,
+        public_id:{
+            type:String,
+            required:true,
+        },
+        url:{
+            type:String,
+            required:true,
+        }
     },
-})
+    creatorId:{
+        type:mongoose.Types.ObjectId,
+        ref:"User"
+    }
+})           
+
+export const Course = mongoose.model("Course" , courseSchema)
