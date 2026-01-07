@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors"
 import { v2 as cloudinary } from 'cloudinary';
 import courseRoute from "./routes/course.route.js"
 import userRoute from "./routes/user.route.js"
@@ -17,6 +18,14 @@ app.use(fileUpload({
     useTempFiles : true,
     tempFileDir : '/tmp/'
 }))
+app.use(
+    cors({
+        origin : process.env.FRONTEND_URL,
+        credentials : true,
+        methods : ["GET","POST","PUT","DELETE"],
+        allowedHeaders : ["Content-Type" , "Authorization"]
+    })
+)
 
 const port = process.env.PORT || 3000
 const db_uri = process.env.MONGO_URI
